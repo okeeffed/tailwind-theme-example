@@ -1,25 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { createContext } from 'react';
+import theme from './theme';
+import { Select } from './Select';
 import './App.css';
 
+export const ThemeContext = createContext(theme);
+
 function App() {
+  const [select, setSelect] = React.useState();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeContext.Provider value={theme}>
+      <Select
+        id="select"
+        name="select"
+        options={[
+          { value: 'chocolate', label: 'Chocolate' },
+          { value: 'strawberry', label: 'Strawberry' },
+          { value: 'vanilla', label: 'Vanilla' },
+        ]}
+        value={select}
+        onChange={(option) => {
+          setSelect(option?.value);
+        }}
+      />
+    </ThemeContext.Provider>
   );
 }
 
